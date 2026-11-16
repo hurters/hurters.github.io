@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SYNTACT — Design Engineering & Tactile Interfaces</title>
+  <meta name="description" content="Студия design engineering. Проектируем и собираем тактильные интерфейсы, софт и 60 FPS веб-приложения без визуального шума.">
+  
+  <!-- OpenGraph -->
+  <meta property="og:title" content="SYNTACT — Design Engineering">
+  <meta property="og:description" content="Проектируем и собираем быстрые, тактильные интерфейсы и цифровые продукты.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hurters.github.io/">
+
+  <!-- Favicon SVG Monogram -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f0f10'/%3E%3Crect x='1' y='1' width='30' height='30' rx='7' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3Ctext x='13' y='21' font-family='sans-serif' font-weight='800' font-size='14' fill='%23ededed' text-anchor='middle'%3EST%3C/text%3E%3Ccircle cx='23' cy='20' r='2' fill='%2310b981'/%3E%3C/svg%3E">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── RESET & TOKENS ─── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-base: #0f0f10;
+      --bg-surface: #141415;
+      --bg-card: #19191b;
+      --bg-input: #232325;
+      --bg-hover: #2a2a2d;
+
+      --border-subtle: rgba(237, 237, 237, 0.08);
+      --border-medium: rgba(237, 237, 237, 0.14);
+      --border-bright: rgba(237, 237, 237, 0.28);
+
+      --text-primary: #ededed;
+      --text-secondary: #a1a1a6;
+      --text-muted: #85858b;
+
+      --accent-emerald: #10b981;
+      --accent-emerald-soft: rgba(16, 185, 129, 0.12);
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', SFMono-Regular, Consolas, monospace;
+
+      --container: 1160px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg-base);
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 40px 40px;
+      background-position: center top;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── LIVE STATUS DOT ─── */
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+      flex-shrink: 0;
+      animation: pulse-dot 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* ─── HEADER / NAVBAR ─── */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(15, 15, 16, 0.82);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: border-color 0.2s ease;
+    }
+
+    .nav-inner {
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .brand-id {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text-primary);
+    }
+
+    .brand-text {
+      font-size: 15.5px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-link span.num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .clock-pill {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      white-space: nowrap;
+    }
+
+    .btn-nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #0f0f10;
+      background: var(--text-primary);
+      padding: 7px 16px;
+      border-radius: 6px;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn-nav-cta:hover {
+      background: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    /* ─── HERO SECTION ─── */
+    .hero {
+      padding: 96px 0 80px;
+      position: relative;
+    }
+
+    .meta-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .hero-h1 {
+      font-size: 56px;
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      color: var(--text-primary);
+      max-width: 860px;
+      margin-bottom: 24px;
+    }
+
+    .hero-desc {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 56px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f0f10;
+      background: var(--text-primary);
+      padding: 12px 24px;
+      border-radius: 8px;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn-primary:hover {
+      background: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      padding: 12px 22px;
+      border-radius: 8px;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--border-bright);
+      background: var(--bg-card);
+    }
+
+    .hero-meta-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ─── SECTION COMMON ─── */
+    .section-wrap {
+      padding: 80px 0;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title {
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 620px;
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+
+    /* ─── WORK SECTION: HURTMUSIC FEATURE ─── */
+    .featured-work-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: 16px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .work-details {
+      padding: 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .work-tagline {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent-emerald);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .work-h2 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .work-summary {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+    }
+
+    .work-tech-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 36px;
+    }
+
+    .tech-chip {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+
+    .work-buttons {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-work-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 6px;
+      background: var(--text-primary);
+      color: #0f0f10;
+      transition: background 0.15s ease;
+    }
+
+    .btn-work-main:hover {
+      background: #fff;
+    }
+
+    .btn-work-sec {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 9px 16px;
+      border-radius: 6px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .btn-work-sec:hover {
+      border-color: var(--border-medium);
+      color: var(--text-primary);
+    }
+
+    /* Player Preview Area */
+    .work-interactive-box {
+      background: var(--bg-card);
+      border-left: 1px solid var(--border-subtle);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .box-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .box-title {
+      font-size: 12.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-primary);
+    }
+
+    .box-bpm {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .canvas-container {
+      width: 100%;
+      height: 220px;
+      background: #0f0f10;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    #harmonic-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: crosshair;
+    }
+
+    .track-strip {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .track-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .track-art {
+      width: 38px;
+      height: 38px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #2b2b30 0%, #171719 100%);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .track-art:hover {
+      background: #333338;
+      color: var(--text-primary);
+    }
+
+    .track-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .track-artist {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .track-quality {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--text-muted);
+    }
+
+    /* ─── APPROACH SECTION ─── */
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .approach-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 32px 28px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .approach-card:hover {
+      border-color: var(--border-medium);
+      transform: translateY(-2px);
+    }
+
+    .card-num {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent-emerald);
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .card-p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ─── STACK SECTION ─── */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .stack-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: border-color 0.15s ease;
+    }
+
+    .stack-item:hover {
+      border-color: var(--border-medium);
+    }
+
+    .stack-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .stack-role {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ─── BRIEF / CONTACT MODAL / CARD ─── */
+    .contact-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: 16px;
+      padding: 48px;
+      max-width: 680px;
+      margin: 0 auto;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    }
+
+    .brief-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .brief-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent-emerald);
+      letter-spacing: 0.12em;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      display: block;
+      text-transform: uppercase;
+    }
+
+    .form-input {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 13px 16px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+
+    .form-input:focus {
+      border-color: var(--border-bright);
+    }
+
+    textarea.form-input {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--text-primary);
+      color: #0f0f10;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 14px 20px;
+      border-radius: 8px;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn-submit:hover {
+      background: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .direct-tg-row {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .direct-link {
+      color: var(--text-primary);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .direct-link:hover {
+      color: var(--accent-emerald);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 48px 0;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-primary);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero-h1 { font-size: 40px; }
+      .featured-work-card { grid-template-columns: 1fr; }
+      .work-interactive-box { border-left: none; border-top: 1px solid var(--border-subtle); }
+      .approach-grid { grid-template-columns: 1fr; }
+      .stack-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-menu { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-h1 { font-size: 32px; }
+      .work-details { padding: 24px; }
+      .contact-card { padding: 24px; }
+      .clock-pill { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <div class="nav-left">
+        <a href="#" class="brand-id">
+          <div class="brand-mark">ST</div>
+          <div class="brand-text">syntact</div>
+        </a>
+
+        <nav>
+          <ul class="nav-menu">
+            <li><a href="#work" class="nav-link"><span class="num">01</span> Работы</a></li>
+            <li><a href="#approach" class="nav-link"><span class="num">02</span> Подход</a></li>
+            <li><a href="#stack" class="nav-link"><span class="num">03</span> Стек</a></li>
+            <li><a href="#contact" class="nav-link"><span class="num">04</span> Контакты</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="nav-right">
+        <div class="clock-pill" id="live-clock">NSK / UTC+7 • 12:00:00</div>
+        <a href="#contact" class="btn-nav-cta">Обсудить проект →</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main class="container">
+    <section class="hero">
+      <div class="meta-chip">
+        <div class="live-dot"></div>
+        <span>Открыт к проектам — Q4 / Q1</span>
+      </div>
+
+      <h1 class="hero-h1">Проектирую и собираю быстрые, тактильные веб-интерфейсы</h1>
+
+      <p class="hero-desc">
+        Фронтенд, дизайн-системы и выверенный motion-дизайн без визуального шума. Превращаю сложные сценарии в ясную геометрию и отзывчивый код.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Обсудить задачу →</a>
+        <a href="#work" class="btn-ghost">Смотреть работы ↓</a>
+        <a href="https://t.me/hurtmusics" target="_blank" rel="noopener" class="btn-ghost">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.8 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .37z"/></svg>
+          Telegram канал
+        </a>
+      </div>
+
+      <div class="hero-meta-bar">
+        <span>SYNTACT // CORE ARCHITECTURE</span>
+        <span>ELECTRON 32 • REACT • CANVAS • WEBAUDIO</span>
+      </div>
+    </section>
+
+    <!-- SECTION: WORK -->
+    <section class="section-wrap" id="work">
+      <div class="section-tag">
+        <div class="live-dot"></div>
+        <span>01 // Selected Work</span>
+      </div>
+      <h2 class="section-title">Флагманские проекты</h2>
+      <p class="section-desc">
+        Каждый интерфейс проектируется как физический прибор: мгновенный тактильный отклик, плавная 60 FPS графика и надежная архитектура.
+      </p>
+
+      <!-- Featured Project Card -->
+      <div class="featured-work-card">
+        <div class="work-details">
+          <div>
+            <div class="work-tagline">FEATURED PROJECT // 01</div>
+            <h3 class="work-h2">HurtMusic Player</h3>
+            <p class="work-summary">
+              Десктопный Hi-Fi аудио-плеер для SoundCloud с прямым стримингом без VPN, 60 FPS гармонической спектральной волной, кастомным оверлеем для игр и Discord Rich Presence.
+            </p>
+            <div class="work-tech-chips">
+              <span class="tech-chip">Desktop App (Electron 32)</span>
+              <span class="tech-chip">SoundCloud HLS</span>
+              <span class="tech-chip">60 FPS Harmonics</span>
+              <span class="tech-chip">Discord RPC</span>
+              <span class="tech-chip">Open Source</span>
+            </div>
+          </div>
+
+          <div class="work-buttons">
+            <a href="https://github.com/hurters/hurtmusic" target="_blank" rel="noopener" class="btn-work-main">
+              GitHub Репозиторий ↗
+            </a>
+            <a href="https://github.com/hurters/hurtmusic/releases/latest" target="_blank" rel="noopener" class="btn-work-sec">
+              Скачать v1.0.1 (.exe)
+            </a>
+          </div>
+        </div>
+
+        <div class="work-interactive-box">
+          <div class="box-header">
+            <div class="box-title">
+              <div class="live-dot"></div>
+              <span>Моя Волна • 60 FPS Harmonics</span>
+            </div>
+            <div class="box-bpm">138 BPM</div>
+          </div>
+
+          <!-- Interactive Spectral Wave Canvas -->
+          <div class="canvas-container">
+            <canvas id="harmonic-canvas" width="500" height="220"></canvas>
+          </div>
+
+          <div class="track-strip">
+            <div class="track-meta">
+              <div class="track-art" id="play-btn" title="Нажмите для интерактива">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <div>
+                <div class="track-title">Blue Bands</div>
+                <div class="track-artist">Weiland • prod. skys</div>
+              </div>
+            </div>
+            <div class="track-quality">Lossless 320k</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: APPROACH -->
+    <section class="section-wrap" id="approach">
+      <div class="section-tag">
+        <div class="live-dot"></div>
+        <span>02 // Philosophy</span>
+      </div>
+      <h2 class="section-title">Принципы разработки</h2>
+      <p class="section-desc">
+        Мы проектируем цифровые продукты по швейцарским стандартам: отказ от поверхностных украшательств в пользу честной геометрии и производительности.
+      </p>
+
+      <div class="approach-grid">
+        <div class="approach-card">
+          <div class="card-num">01 / ZERO SLOP</div>
+          <h3 class="card-title">Чистая геометрия</h3>
+          <p class="card-p">
+            Никаких бессмысленных размытых градиентов, неоновых свечений и визуального мусора. Строгая сетка, достаточный «воздух» и контраст, на котором глаз отдыхает.
+          </p>
+        </div>
+
+        <div class="approach-card">
+          <div class="card-num">02 / TACTILE PHYSICS</div>
+          <h3 class="card-title">Тактильный отклик</h3>
+          <p class="card-p">
+            Интерфейс должен ощущаться в руках как качественный инструмент: дискретные микро-анимации, физика инерции и стабильные 60 FPS на Canvas и CSS.
+          </p>
+        </div>
+
+        <div class="approach-card">
+          <div class="card-num">03 / CODE AS CRAFT</div>
+          <h3 class="card-title">Инженерная надежность</h3>
+          <p class="card-p">
+            Код пишется без тяжелых овер-инжиниринговых библиотек. Мгновенный первый рендер (LCP &lt; 0.8s), минимальное потребление RAM и готовность к продакшену.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: STACK -->
+    <section class="section-wrap" id="stack">
+      <div class="section-tag">
+        <div class="live-dot"></div>
+        <span>03 // Stack</span>
+      </div>
+      <h2 class="section-title">Технологический базис</h2>
+      <p class="section-desc">
+        Стек подбирается под максимальную скорость сборки и плавность работы на клиенте.
+      </p>
+
+      <div class="stack-grid">
+        <div class="stack-item">
+          <div class="stack-name">Electron 32</div>
+          <div class="stack-role">Desktop Architecture</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-name">React 19</div>
+          <div class="stack-role">UI Runtime & Components</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-name">TypeScript</div>
+          <div class="stack-role">Type Safety & Contracts</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-name">HTML5 Canvas</div>
+          <div class="stack-role">60 FPS Motion Graphics</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-name">WebAudio API</div>
+          <div class="stack-role">Audio Synthesis & DSP</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-name">Tailwind CSS</div>
+          <div class="stack-role">Design Tokens & Layout</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-name">SoundCloud HLS</div>
+          <div class="stack-role">High-Bitrate Media</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-name">Node.js / IPC</div>
+          <div class="stack-role">Native Bridge & OS APIs</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: CONTACT / BRIEF -->
+    <section class="section-wrap" id="contact">
+      <div class="section-tag" style="justify-content: center;">
+        <div class="live-dot"></div>
+        <span>04 // Collaboration</span>
+      </div>
+      <h2 class="section-title" style="text-align: center;">Обсудить проект</h2>
+      <p class="section-desc" style="text-align: center; margin: 0 auto 48px;">
+        Заполните короткий бриф — форма сформирует готовое сообщение и откроет прямой диалог в Telegram.
+      </p>
+
+      <div class="contact-card">
+        <div class="brief-hdr">
+          <div class="brief-badge">SYNTACT // BRIEF</div>
+          <span style="font-family: var(--font-mono); font-size:11px; color:var(--text-muted);">ONLINE</span>
+        </div>
+
+        <form id="brief-form" onsubmit="submitBrief(event)">
+          <div class="form-group">
+            <label class="form-label">Как к вам обращаться</label>
+            <input type="text" id="brief-name" class="form-input" placeholder="Алексей / Студия" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Ваш контакт для связи</label>
+            <input type="text" id="brief-contact" class="form-input" placeholder="Telegram @username или телефон" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Суть задачи</label>
+            <textarea id="brief-task" class="form-input" placeholder="Фронтенд, редизайн, десктопное приложение или motion..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <span>Отправить бриф в Telegram</span>
+            <span>→</span>
+          </button>
+        </form>
+
+        <div class="direct-tg-row">
+          <span>Или напишите напрямую:</span>
+          <a href="https://t.me/foidslaayer333" target="_blank" rel="noopener" class="direct-link">
+            <span>@foidslaayer333</span>
+            <span>↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div class="brand-mark">ST</div>
+        <span style="font-weight:600; color:var(--text-primary);">syntact</span>
+        <span>• Design Engineering Studio</span>
+      </div>
+
+      <ul class="footer-links">
+        <li><a href="https://t.me/hurtmusics" target="_blank" rel="noopener">Канал @hurtmusics</a></li>
+        <li><a href="https://t.me/foidslaayer333" target="_blank" rel="noopener">Telegram Личка</a></li>
+        <li><a href="https://github.com/hurters" target="_blank" rel="noopener">GitHub @hurters</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- ─── JAVASCRIPT: CLOCK, CANVAS HARMONICS, BRIEF HANDLER ─── -->
+  <script>
+    // 1. Live UTC+7 Novosibirsk Clock
+    function updateClock() {
+      const now = new Date();
+      // Target UTC+7
+      const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+      const nskTime = new Date(utc + (3600000 * 7));
+      const hours = String(nskTime.getHours()).padStart(2, '0');
+      const minutes = String(nskTime.getMinutes()).padStart(2, '0');
+      const seconds = String(nskTime.getSeconds()).padStart(2, '0');
+      const clockEl = document.getElementById('live-clock');
+      if (clockEl) {
+        clockEl.textContent = `NSK / UTC+7 • ${hours}:${minutes}:${seconds}`;
+      }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 2. Interactive Spectral Resonance Canvas (Same 6-curve physics as in banner!)
+    const canvas = document.getElementById('harmonic-canvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let mouseX = 0.5;
+      let mouseY = 0.5;
+      let animTime = 0;
+      let isHovered = false;
+
+      function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * (window.devicePixelRatio || 1);
+        canvas.height = rect.height * (window.devicePixelRatio || 1);
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = (e.clientX - rect.left) / rect.width;
+        mouseY = (e.clientY - rect.top) / rect.height;
+        isHovered = true;
+      });
+
+      canvas.addEventListener('mouseleave', () => {
+        isHovered = false;
+      });
+
+      // Harmonic 6 curves configuration
+      const curves = [
+        { stroke: '#f59e0b', maxAmp: 48, freq: 1.0,  phase: 0.0, speed: 2.4 },
+        { stroke: '#10b981', maxAmp: 42, freq: 1.35, phase: 0.6, speed: 2.8 },
+        { stroke: '#06b6d4', maxAmp: 36, freq: 1.7,  phase: 1.2, speed: 3.2 },
+        { stroke: '#3b82f6', maxAmp: 30, freq: 2.1,  phase: 1.8, speed: 3.6 },
+        { stroke: '#8b5cf6', maxAmp: 24, freq: 2.5,  phase: 2.4, speed: 4.0 },
+        { stroke: '#ec4899', maxAmp: 18, freq: 3.0,  phase: 3.0, speed: 4.4 }
+      ];
+
+      function renderWave() {
+        animTime += 0.025;
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+
+        const centerY = h * 0.52;
+        const startX = w * 0.08;
+        const endX = w * 0.92;
+        const length = endX - startX;
+
+        // Baseline reference
+        ctx.beginPath();
+        ctx.moveTo(startX, centerY);
+        ctx.lineTo(endX, centerY);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        const interactiveBoost = isHovered ? (1 + (0.5 - Math.abs(mouseX - 0.5)) * 0.8) : 1;
+
+        curves.forEach((c) => {
+          ctx.beginPath();
+          ctx.strokeStyle = c.stroke;
+          ctx.lineWidth = 2.2 * (window.devicePixelRatio || 1);
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+
+          const steps = 90;
+          for (let i = 0; i <= steps; i++) {
+            const frac = i / steps;
+            const x = startX + length * frac;
+
+            // Envelope (zero at ends, peaks in center)
+            const env = Math.sin(frac * Math.PI);
+
+            // Modulation
+            const mod1 = Math.sin(animTime * c.speed + frac * Math.PI * c.freq + c.phase);
+            const mod2 = Math.cos(animTime * 1.5 + frac * 2);
+            const totalMod = (mod1 * 0.75 + mod2 * 0.25);
+
+            const amp = c.maxAmp * (window.devicePixelRatio || 1) * env * interactiveBoost;
+            const y = centerY - amp * totalMod;
+
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+        });
+
+        requestAnimationFrame(renderWave);
+      }
+      renderWave();
+    }
+
+    // 3. Play Button Audio Feedback (WebAudio synthesizer pulse)
+    const playBtn = document.getElementById('play-btn');
+    if (playBtn) {
+      playBtn.addEventListener('click', () => {
+        try {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) {
+            const actx = new AudioContext();
+            const osc = actx.createOscillator();
+            const gain = actx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(440, actx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(880, actx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.15, actx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, actx.currentTime + 0.2);
+            osc.connect(gain);
+            gain.connect(actx.destination);
+            osc.start();
+            osc.stop(actx.currentTime + 0.22);
+          }
+        } catch(e) {}
+      });
+    }
+
+    // 4. Brief Submission Form
+    function submitBrief(e) {
+      e.preventDefault();
+      const name = document.getElementById('brief-name').value.trim();
+      const contact = document.getElementById('brief-contact').value.trim();
+      const task = document.getElementById('brief-task').value.trim();
+
+      const message = `SYNTACT // Бриф с сайта\n\nИмя: ${name}\nКонтакт: ${contact}\nЗадача: ${task}`;
+      const tgUrl = `https://t.me/foidslaayer333?text=${encodeURIComponent(message)}`;
+      window.open(tgUrl, '_blank');
+    }
+  </script>
+</body>
+</html>
