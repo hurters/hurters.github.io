@@ -3,46 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TRUE BARBERSHOP // Классическая мужская стрижка и бритье • Новосибирск, ул. Ленина 20</title>
-  <meta name="description" content="Классическая мужская парикмахерская в центре Новосибирска на ул. Ленина, 20. Мужские стрижки, опасная бритва, моделирование бороды.">
+  <title>TRUE BARBERSHOP // Мужская стрижка и бритье • Новосибирск, ул. Ленина, 20</title>
+  <meta name="description" content="Классическая мужская парикмахерская в Новосибирске на ул. Ленина, 20. Мужские стрижки, опасная бритва, уход за бородой.">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     :root {
-      --bg: #09090b;
-      --surface: #111114;
-      --surface-hover: #18181d;
+      --bg: #0b0b0d;
+      --surface: #121215;
+      --surface-active: #17171c;
       --border: rgba(255, 255, 255, 0.08);
-      --border-accent: rgba(212, 175, 55, 0.4);
-      --text-main: #f4f4f5;
-      --text-muted: #8e8e93;
-      --gold: #d4af37;
-      --gold-light: #f3e5ab;
+      --border-focus: rgba(255, 255, 255, 0.2);
+      --text: #ededed;
+      --text-muted: #82828a;
+      --brass: #c5a059;
+      --brass-dim: rgba(197, 160, 89, 0.15);
     }
 
     body {
       background: var(--bg);
-      color: var(--text-main);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif;
       line-height: 1.5;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Architectural grid background */
+    /* Quiet precision grid: 48px */
     .bg-grid {
       position: fixed;
       inset: 0;
       background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-      background-size: 44px 44px;
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
       pointer-events: none;
       z-index: 0;
     }
 
     .container {
-      max-width: 1120px;
+      max-width: 1080px;
       margin: 0 auto;
       padding: 0 24px;
       position: relative;
@@ -52,504 +52,476 @@
     /* TOP BAR */
     .top-bar {
       border-bottom: 1px solid var(--border);
-      background: rgba(9, 9, 11, 0.85);
+      background: rgba(11, 11, 13, 0.92);
       backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
       z-index: 100;
     }
     .top-bar-inner {
-      height: 64px;
+      height: 60px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .brand {
+    .brand-link {
       display: flex;
       align-items: center;
       gap: 12px;
       text-decoration: none;
     }
-    .brand-logo {
-      width: 38px;
-      height: 38px;
+    .brand-monogram {
+      width: 32px;
+      height: 32px;
       background: var(--surface);
-      border: 1px solid var(--border-accent);
-      border-radius: 8px;
+      border: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--gold);
-      font-weight: 800;
-      font-size: 15px;
+      font-family: monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
       letter-spacing: -0.5px;
     }
-    .brand-title {
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: 2px;
+    .brand-name {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
       color: #ffffff;
       text-transform: uppercase;
     }
-    .brand-sub {
+    .brand-loc {
+      font-family: monospace;
       font-size: 11px;
       color: var(--text-muted);
-      font-family: monospace;
-      letter-spacing: 1px;
     }
 
-    .nav-meta {
+    .top-right {
       display: flex;
       align-items: center;
-      gap: 20px;
-      font-size: 13px;
+      gap: 24px;
     }
-    .status-badge {
+    .status-tag {
+      font-family: monospace;
+      font-size: 11px;
+      color: #a1a1aa;
+      text-transform: uppercase;
       display: flex;
       align-items: center;
-      gap: 8px;
-      color: #10b981;
+      gap: 6px;
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background: #10b981;
+      border-radius: 50%;
+    }
+    .phone-text {
+      color: var(--text);
+      text-decoration: none;
       font-family: monospace;
       font-size: 12px;
     }
-    .dot-pulse {
-      width: 7px;
-      height: 7px;
-      background: #10b981;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #10b981;
-    }
-    .phone-link {
-      color: var(--text-main);
-      text-decoration: none;
+    .btn-top {
+      background: #ededed;
+      color: #0b0b0d;
+      font-size: 12px;
       font-weight: 600;
-      transition: color 0.2s;
-    }
-    .phone-link:hover { color: var(--gold); }
-
-    .btn-book {
-      background: var(--gold);
-      color: #09090b;
-      font-weight: 700;
-      font-size: 13px;
-      padding: 10px 20px;
-      border-radius: 6px;
-      text-decoration: none;
-      letter-spacing: 0.5px;
-      transition: all 0.2s;
+      padding: 8px 16px;
+      border-radius: 4px;
       border: none;
       cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
     }
-    .btn-book:hover {
-      background: var(--gold-light);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.35);
+    .btn-top:hover {
+      background: #ffffff;
     }
 
     /* HERO */
     .hero {
-      padding: 80px 0 60px;
-      text-align: center;
-      position: relative;
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--border);
     }
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(212, 175, 55, 0.1);
-      border: 1px solid var(--border-accent);
-      color: var(--gold);
+    .hero-meta {
       font-family: monospace;
       font-size: 12px;
-      padding: 6px 16px;
-      border-radius: 30px;
+      color: var(--brass);
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 24px;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
     }
-    .hero-h1 {
-      font-size: 56px;
-      font-weight: 800;
-      letter-spacing: -1.5px;
+    .hero-title {
+      font-size: 48px;
       line-height: 1.08;
-      max-width: 900px;
-      margin: 0 auto 24px;
+      font-weight: 700;
+      letter-spacing: -1.2px;
       color: #ffffff;
-    }
-    .hero-h1 em {
-      font-style: normal;
-      color: var(--gold);
-      border-bottom: 2px solid rgba(212, 175, 55, 0.4);
+      max-width: 840px;
+      margin-bottom: 20px;
     }
     .hero-desc {
-      font-size: 20px;
-      color: var(--text-muted);
-      max-width: 680px;
-      margin: 0 auto 36px;
+      font-size: 18px;
       line-height: 1.5;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin-bottom: 36px;
     }
-    .hero-actions {
+    .hero-buttons {
       display: flex;
-      justify-content: center;
-      gap: 16px;
+      gap: 14px;
       margin-bottom: 48px;
     }
-    .btn-primary {
-      background: #ffffff;
-      color: #09090b;
-      font-weight: 700;
-      font-size: 15px;
-      padding: 14px 28px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: all 0.2s;
-      cursor: pointer;
+    .btn-main {
+      background: #ededed;
+      color: #0b0b0d;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 4px;
       border: none;
+      cursor: pointer;
+      transition: background 0.15s;
     }
-    .btn-primary:hover {
-      background: #e4e4e7;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(255, 255, 255, 0.15);
+    .btn-main:hover {
+      background: #ffffff;
     }
-    .btn-secondary {
+    .btn-quiet {
       background: var(--surface);
       border: 1px solid var(--border);
-      color: var(--text-main);
-      font-weight: 600;
-      font-size: 15px;
-      padding: 14px 28px;
-      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      padding: 12px 24px;
+      border-radius: 4px;
       text-decoration: none;
-      transition: all 0.2s;
+      transition: border-color 0.15s;
     }
-    .btn-secondary:hover {
-      background: var(--surface-hover);
-      border-color: rgba(255, 255, 255, 0.2);
+    .btn-quiet:hover {
+      border-color: var(--border-focus);
     }
 
-    /* SPECS ROW */
-    .specs-grid {
+    /* METRICS / SPECS */
+    .metrics-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 1px;
       background: var(--border);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 80px;
     }
-    .spec-box {
+    .metric-cell {
       background: var(--surface);
-      padding: 24px 20px;
-      text-align: left;
+      padding: 20px 24px;
     }
-    .spec-kicker {
+    .metric-label {
       font-family: monospace;
       font-size: 11px;
-      color: var(--gold);
-      letter-spacing: 1px;
+      color: var(--text-muted);
       text-transform: uppercase;
+      letter-spacing: 0.5px;
       margin-bottom: 6px;
     }
-    .spec-val {
-      font-size: 17px;
-      font-weight: 700;
+    .metric-val {
+      font-size: 16px;
+      font-weight: 600;
       color: #ffffff;
-      margin-bottom: 4px;
-    }
-    .spec-sub {
-      font-size: 13px;
-      color: var(--text-muted);
     }
 
     /* SERVICES CALCULATOR */
-    .section-header {
-      text-align: center;
-      margin-bottom: 44px;
+    .section-wrap {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border);
     }
-    .section-label {
+    .section-lead {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 32px;
+    }
+    .section-h2 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      color: #ffffff;
+    }
+    .section-hint {
       font-family: monospace;
       font-size: 12px;
-      color: var(--gold);
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-    .section-title {
-      font-size: 38px;
-      font-weight: 800;
-      letter-spacing: -1px;
-      color: #ffffff;
-      margin-bottom: 12px;
-    }
-    .section-desc {
       color: var(--text-muted);
-      font-size: 16px;
-      max-width: 540px;
-      margin: 0 auto;
+      text-transform: uppercase;
     }
 
-    .services-grid {
+    .cards-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-bottom: 36px;
+      gap: 16px;
+      margin-bottom: 24px;
     }
-    .service-card {
+    .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 26px;
+      padding: 24px;
+      border-radius: 4px;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
-      user-select: none;
+      transition: all 0.15s ease;
     }
-    .service-card:hover {
-      background: var(--surface-hover);
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-2px);
+    .card:hover {
+      border-color: var(--border-focus);
+      background: var(--surface-active);
     }
-    .service-card.selected {
-      border-color: var(--gold);
-      background: #141310;
-      box-shadow: 0 0 30px rgba(212, 175, 55, 0.12);
+    .card.active {
+      border-color: var(--brass);
+      background: #141418;
     }
-    .service-badge {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      width: 22px;
-      height: 22px;
-      border: 1px solid var(--border);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      color: transparent;
-      transition: all 0.2s;
-    }
-    .service-card.selected .service-badge {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: #09090b;
-    }
-    .service-time {
-      font-family: monospace;
-      font-size: 11px;
-      color: var(--gold);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .service-name {
-      font-size: 20px;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 8px;
-    }
-    .service-desc {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.45;
-      margin-bottom: 20px;
-      min-height: 42px;
-    }
-    .service-price {
-      font-size: 22px;
-      font-weight: 800;
-      color: #ffffff;
-      font-family: monospace;
-      letter-spacing: -0.5px;
-    }
-
-    /* SUMMARY BAR (STICKY BOTTOM WHEN SELECTED) */
-    .summary-bar {
-      background: rgba(18, 18, 22, 0.95);
-      border: 1px solid var(--border-accent);
-      border-radius: 14px;
-      padding: 20px 28px;
+    .card-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 80px;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      margin-bottom: 12px;
     }
-    .summary-info h4 {
-      font-size: 16px;
+    .card-duration {
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--brass);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .card-marker {
+      width: 16px;
+      height: 16px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: transparent;
+    }
+    .card.active .card-marker {
+      background: var(--brass);
+      border-color: var(--brass);
+      color: #0b0b0d;
+      font-weight: 700;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .card-text {
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      min-height: 38px;
+    }
+    .card-price {
+      font-family: monospace;
+      font-size: 20px;
       font-weight: 700;
       color: #ffffff;
-      margin-bottom: 4px;
+      letter-spacing: -0.5px;
     }
-    .summary-info p {
-      font-size: 13px;
+
+    /* SUMMARY BAR */
+    .summary-dock {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .summary-left h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 2px;
+    }
+    .summary-left p {
+      font-family: monospace;
+      font-size: 12px;
       color: var(--text-muted);
     }
-    .summary-actions {
+    .summary-right {
       display: flex;
       align-items: center;
       gap: 24px;
     }
-    .total-price {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--gold);
+    .total-val {
       font-family: monospace;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--brass);
     }
 
-    /* LOCATION & ATMOSPHERE */
-    .location-box {
+    /* LOCATION & DETAILS */
+    .info-layout {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 32px;
+      margin-top: 48px;
+    }
+    .info-block {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 44px;
-      margin-bottom: 80px;
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 48px;
-      align-items: center;
+      padding: 32px;
     }
-    .loc-details h3 {
-      font-size: 32px;
-      font-weight: 800;
-      margin-bottom: 16px;
+    .info-block h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
       color: #ffffff;
     }
-    .loc-desc {
-      font-size: 16px;
+    .info-block p {
+      font-size: 15px;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.5;
       margin-bottom: 24px;
     }
-    .loc-items {
+    .info-list {
       display: flex;
       flex-direction: column;
       gap: 14px;
     }
-    .loc-item {
+    .info-item {
       display: flex;
-      align-items: flex-start;
       gap: 12px;
-      font-size: 15px;
+      font-size: 14px;
     }
-    .loc-icon {
-      color: var(--gold);
-      font-size: 18px;
-      line-height: 1;
-    }
-    .loc-right {
-      background: #0d0d10;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 32px;
-      text-align: center;
-    }
-    .loc-badge {
+    .info-tag {
       font-family: monospace;
-      font-size: 12px;
-      color: var(--gold);
-      letter-spacing: 1px;
+      font-size: 11px;
+      color: var(--brass);
+      width: 44px;
+      flex-shrink: 0;
       text-transform: uppercase;
-      margin-bottom: 12px;
+    }
+
+    .cta-card {
+      background: #101013;
+      border: 1px solid var(--border);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .cta-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+    .cta-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-bottom: 24px;
     }
 
     /* MODAL */
-    .modal-overlay {
+    .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.8);
       z-index: 200;
       display: none;
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
-    .modal-overlay.active { display: flex; }
-    .modal-card {
-      background: #111115;
-      border: 1px solid var(--border-accent);
-      border-radius: 16px;
-      max-width: 480px;
+    .modal-backdrop.open { display: flex; }
+    .modal-panel {
+      background: #111114;
+      border: 1px solid var(--border-focus);
       width: 100%;
-      padding: 36px;
+      max-width: 440px;
+      padding: 32px;
       position: relative;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
     }
-    .modal-close {
+    .modal-close-btn {
       position: absolute;
-      top: 18px;
-      right: 18px;
+      top: 16px;
+      right: 16px;
       background: none;
       border: none;
-      color: #71717a;
-      font-size: 22px;
+      color: var(--text-muted);
+      font-size: 18px;
       cursor: pointer;
+      padding: 4px;
     }
-    .modal-title {
-      font-size: 24px;
-      font-weight: 800;
-      margin-bottom: 8px;
+    .modal-h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
       color: #ffffff;
     }
-    .modal-sub {
-      font-size: 14px;
+    .modal-subtext {
+      font-size: 13px;
       color: var(--text-muted);
       margin-bottom: 24px;
     }
-    .modal-btn {
+    .modal-action-row {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .action-link {
+      display: flex;
       justify-content: space-between;
-      width: 100%;
-      background: #18181d;
+      align-items: center;
+      background: var(--surface);
       border: 1px solid var(--border);
-      padding: 16px 20px;
-      border-radius: 10px;
+      padding: 14px 18px;
       color: #ffffff;
       text-decoration: none;
-      font-weight: 600;
-      margin-bottom: 12px;
-      transition: all 0.2s;
+      font-size: 14px;
+      font-weight: 500;
+      transition: border-color 0.15s;
     }
-    .modal-btn:hover {
-      background: #22222a;
-      border-color: var(--gold);
-      transform: translateX(3px);
+    .action-link:hover {
+      border-color: var(--border-focus);
+      background: var(--surface-active);
     }
-    .modal-btn span { color: var(--gold); font-family: monospace; font-size: 13px; }
+    .action-meta {
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .action-arrow {
+      color: var(--brass);
+      font-family: monospace;
+      font-size: 13px;
+    }
 
     /* FOOTER */
     footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 0;
-      font-size: 13px;
+      padding: 36px 0;
+      font-family: monospace;
+      font-size: 12px;
       color: var(--text-muted);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .credit-badge {
-      font-family: monospace;
-      font-size: 11px;
-      color: #71717a;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .credit-badge a {
-      color: var(--gold);
+    footer a {
+      color: var(--text);
       text-decoration: none;
     }
+    footer a:hover {
+      color: #ffffff;
+    }
 
-    @media (max-width: 860px) {
-      .hero-h1 { font-size: 38px; }
-      .specs-grid { grid-template-columns: repeat(2, 1fr); }
-      .services-grid { grid-template-columns: 1fr; }
-      .location-box { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
-      .nav-meta { display: none; }
-      .summary-bar { flex-direction: column; gap: 16px; text-align: center; }
+    @media (max-width: 820px) {
+      .hero-title { font-size: 34px; }
+      .metrics-row { grid-template-columns: repeat(2, 1fr); }
+      .cards-grid { grid-template-columns: 1fr; }
+      .info-layout { grid-template-columns: 1fr; }
+      .top-right .phone-text, .top-right .status-tag { display: none; }
+      .summary-dock { flex-direction: column; gap: 16px; align-items: flex-start; }
+      .summary-right { width: 100%; justify-content: space-between; }
     }
   </style>
 </head>
@@ -560,21 +532,21 @@
   <!-- TOP BAR -->
   <header class="top-bar">
     <div class="container top-bar-inner">
-      <a href="#" class="brand">
-        <div class="brand-logo">TB</div>
+      <a href="#" class="brand-link">
+        <div class="brand-monogram">TB</div>
         <div>
-          <div class="brand-title">TRUE BARBERSHOP</div>
-          <div class="brand-sub">EST. NOVOSIBIRSK // LENINA 20</div>
+          <div class="brand-name">TRUE BARBERSHOP</div>
+          <div class="brand-loc">НОВОСИБИРСК // ЛЕНИНА 20</div>
         </div>
       </a>
 
-      <div class="nav-meta">
-        <div class="status-badge">
-          <span class="dot-pulse"></span>
+      <div class="top-right">
+        <div class="status-tag">
+          <span class="status-dot"></span>
           <span>Открыто до 21:00</span>
         </div>
-        <a href="tel:+73832140422" class="phone-link">+7 (383) 214-04-22</a>
-        <button class="btn-book" onclick="openBookingModal()">Записаться в 1 клик</button>
+        <a href="tel:+73832140422" class="phone-text">+7 (383) 214-04-22</a>
+        <button class="btn-top" onclick="openModal()">Записаться</button>
       </div>
     </div>
   </header>
@@ -582,158 +554,168 @@
   <!-- HERO -->
   <section class="hero">
     <div class="container">
-      <div class="hero-tag">Новосибирск • ул. Ленина, 20 (м. Площадь Ленина)</div>
-      <h1 class="hero-h1">
-        Традиции классического барберинга <em>в центре Новосибирска.</em>
+      <div class="hero-meta">[ КЛАССИЧЕСКАЯ МУЖСКАЯ СТРИЖКА И БРИТЬЁ // С 2017 ГОДА ]</div>
+      <h1 class="hero-title">
+        Традиционный барберинг в центре Новосибирска.
       </h1>
       <p class="hero-desc">
-        Мужские стрижки любой сложности, бритьё опасной бритвой, моделирование бороды и спокойная атмосфера мужского клуба без спешки и визуального шума.
+        Мужские стрижки любой сложности, моделирование бороды и бритье опасной бритвой. Спокойная атмосфера на улице Ленина, 20 без лишнего шума и конвейера.
       </p>
 
-      <div class="hero-actions">
-        <button class="btn-primary" onclick="openBookingModal()">Быстрая запись онлайн →</button>
-        <a href="#services" class="btn-secondary">Выбрать услугу и цены ↓</a>
+      <div class="hero-buttons">
+        <button class="btn-main" onclick="openModal()">Записаться на стрижку</button>
+        <a href="#services" class="btn-quiet">Прайс и расчёт стоимости</a>
       </div>
 
-      <!-- SPECS -->
-      <div class="specs-grid">
-        <div class="spec-box">
-          <div class="spec-kicker">01 / ЛОКАЦИЯ</div>
-          <div class="spec-val">ул. Ленина, 20</div>
-          <div class="spec-sub">5 мин от м. «Площадь Ленина»</div>
+      <!-- SPECS ROW -->
+      <div class="metrics-row">
+        <div class="metric-cell">
+          <div class="metric-label">Локация</div>
+          <div class="metric-val">ул. Ленина, 20</div>
         </div>
-        <div class="spec-box">
-          <div class="spec-kicker">02 / РЕЖИМ РАБОТЫ</div>
-          <div class="spec-val">09:00 – 21:00</div>
-          <div class="spec-sub">Ежедневно, без выходных</div>
+        <div class="metric-cell">
+          <div class="metric-label">График</div>
+          <div class="metric-val">09:00 – 21:00</div>
         </div>
-        <div class="spec-box">
-          <div class="spec-kicker">03 / МАСТЕРА</div>
-          <div class="spec-val">Опыт от 5 лет</div>
-          <div class="spec-sub">Только профи, без стажёров</div>
+        <div class="metric-cell">
+          <div class="metric-label">Опыт мастеров</div>
+          <div class="metric-val">От 5 лет</div>
         </div>
-        <div class="spec-box">
-          <div class="spec-kicker">04 / РЕЙТИНГ</div>
-          <div class="spec-val">★ 4.8 из 5.0</div>
-          <div class="spec-sub">По отзывам гостей в 2ГИС</div>
+        <div class="metric-cell">
+          <div class="metric-label">Парковка</div>
+          <div class="metric-val">Закрытый двор</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- SERVICES CALCULATOR -->
-  <section id="services" style="padding: 40px 0;">
+  <section id="services" class="section-wrap">
     <div class="container">
-      <div class="section-header">
-        <div class="section-label">[ ИНТЕРАКТИВНЫЙ ПРАЙС-ЛИСТ ]</div>
-        <h2 class="section-title">Выберите нужные услуги</h2>
-        <p class="section-desc">Кликните на одну или несколько услуг, чтобы рассчитать точную стоимость и сразу забронировать время.</p>
+      <div class="section-lead">
+        <div>
+          <div class="hero-meta">[ УСЛУГИ И СТОИМОСТЬ ]</div>
+          <h2 class="section-h2">Интерактивный расчет визита</h2>
+        </div>
+        <div class="section-hint">Кликните, чтобы выбрать услуги</div>
       </div>
 
-      <div class="services-grid">
+      <div class="cards-grid">
         <!-- 01 -->
-        <div class="service-card selected" data-id="1" data-name="Мужская стрижка" data-price="1800" onclick="toggleService(this)">
-          <div class="service-badge">✓</div>
-          <div class="service-time">45–60 мин</div>
-          <div class="service-name">Мужская стрижка</div>
-          <div class="service-desc">Мытье головы до и после, подбор формы, стрижка ножницами и машинкой, укладка премиум-стайлингом.</div>
-          <div class="service-price">1 800 ₽</div>
+        <div class="card active" data-id="1" data-name="Мужская стрижка" data-price="1800" onclick="toggleCard(this)">
+          <div class="card-top">
+            <div class="card-duration">45–60 мин</div>
+            <div class="card-marker">✓</div>
+          </div>
+          <div class="card-title">Мужская стрижка</div>
+          <div class="card-text">Мытье головы до и после, индивидуальный подбор формы, стрижка ножницами и машинкой, укладка.</div>
+          <div class="card-price">1 800 ₽</div>
         </div>
 
         <!-- 02 -->
-        <div class="service-card" data-id="2" data-name="Моделирование бороды" data-price="1200" onclick="toggleService(this)">
-          <div class="service-badge">✓</div>
-          <div class="service-time">30–45 мин</div>
-          <div class="service-name">Моделирование бороды</div>
-          <div class="service-desc">Четкие контуры, распаривание горячим полотенцем, подравнивание длины, уходовое масло.</div>
-          <div class="service-price">1 200 ₽</div>
+        <div class="card" data-id="2" data-name="Моделирование бороды" data-price="1200" onclick="toggleCard(this)">
+          <div class="card-top">
+            <div class="card-duration">30–45 мин</div>
+            <div class="card-marker">✓</div>
+          </div>
+          <div class="card-title">Моделирование бороды</div>
+          <div class="card-text">Геометрия контуров, распаривание компрессом, подравнивание длины и уходовое масло.</div>
+          <div class="card-price">1 200 ₽</div>
         </div>
 
         <!-- 03 -->
-        <div class="service-card" data-id="3" data-name="Комплекс: Стрижка + Борода" data-price="2600" onclick="toggleService(this)">
-          <div class="service-badge">✓</div>
-          <div class="service-time">75–90 мин</div>
-          <div class="service-name">Стрижка + Борода</div>
-          <div class="service-desc">Полный уход в один визит. Идеальный комплекс с выгодой 400 ₽ относительно раздельных услуг.</div>
-          <div class="service-price">2 600 ₽</div>
+        <div class="card" data-id="3" data-name="Стрижка + Борода" data-price="2600" onclick="toggleCard(this)">
+          <div class="card-top">
+            <div class="card-duration">75–90 мин</div>
+            <div class="card-marker">✓</div>
+          </div>
+          <div class="card-title">Комплекс: Стрижка + Борода</div>
+          <div class="card-text">Полный уход в один визит. Оптимальный комплекс с выгодой 400 ₽ относительно раздельных услуг.</div>
+          <div class="card-price">2 600 ₽</div>
         </div>
 
         <!-- 04 -->
-        <div class="service-card" data-id="4" data-name="Королевское бритьё" data-price="1500" onclick="toggleService(this)">
-          <div class="service-badge">✓</div>
-          <div class="service-time">45 мин</div>
-          <div class="service-name">Королевское бритьё</div>
-          <div class="service-desc">Традиционное бритье опасной бритвой с горячими и холодными компрессами, массажем лица и премиум-пеной.</div>
-          <div class="service-price">1 500 ₽</div>
+        <div class="card" data-id="4" data-name="Королевское бритьё" data-price="1500" onclick="toggleCard(this)">
+          <div class="card-top">
+            <div class="card-duration">45 мин</div>
+            <div class="card-marker">✓</div>
+          </div>
+          <div class="card-title">Королевское бритьё</div>
+          <div class="card-text">Бритье опасной бритвой с горячими и холодными компрессами, массажем лица и премиальной пеной.</div>
+          <div class="card-price">1 500 ₽</div>
         </div>
 
         <!-- 05 -->
-        <div class="service-card" data-id="5" data-name="Стрижка под машинку" data-price="1000" onclick="toggleService(this)">
-          <div class="service-badge">✓</div>
-          <div class="service-time">30 мин</div>
-          <div class="service-name">Стрижка машинкой</div>
-          <div class="service-desc">Аккуратная стрижка на 1–2 насадки, окантовка шейной зоны триммером и мытье головы.</div>
-          <div class="service-price">1 000 ₽</div>
+        <div class="card" data-id="5" data-name="Стрижка машинкой" data-price="1000" onclick="toggleCard(this)">
+          <div class="card-top">
+            <div class="card-duration">30 мин</div>
+            <div class="card-marker">✓</div>
+          </div>
+          <div class="card-title">Стрижка машинкой</div>
+          <div class="card-text">Стрижка на 1–2 насадки, окантовка триммером и мытье головы. Быстро и аккуратно.</div>
+          <div class="card-price">1 000 ₽</div>
         </div>
 
         <!-- 06 -->
-        <div class="service-card" data-id="6" data-name="Камуфляж седины" data-price="1100" onclick="toggleService(this)">
-          <div class="service-badge">✓</div>
-          <div class="service-time">20 мин</div>
-          <div class="service-name">Камуфляж седины</div>
-          <div class="service-desc">Тонирование волос или бороды мягким красителем без эффекта парика за 15 минут.</div>
-          <div class="service-price">1 100 ₽</div>
+        <div class="card" data-id="6" data-name="Камуфляж седины" data-price="1100" onclick="toggleCard(this)">
+          <div class="card-top">
+            <div class="card-duration">20 мин</div>
+            <div class="card-marker">✓</div>
+          </div>
+          <div class="card-title">Камуфляж седины</div>
+          <div class="card-text">Естественное тонирование волос или бороды мягким составом без эффекта окрашивания.</div>
+          <div class="card-price">1 100 ₽</div>
         </div>
       </div>
 
-      <!-- SUMMARY BAR -->
-      <div class="summary-bar">
-        <div class="summary-info">
-          <h4 id="summary-title">Выбрано: Мужская стрижка</h4>
-          <p id="summary-count">1 услуга в чеке</p>
+      <!-- SUMMARY DOCK -->
+      <div class="summary-dock">
+        <div class="summary-left">
+          <h4 id="calc-title">Выбрано: Мужская стрижка</h4>
+          <p id="calc-count">1 позиция в чеке</p>
         </div>
-        <div class="summary-actions">
+        <div class="summary-right">
           <div>
-            <div style="font-size: 11px; color: #71717a; text-transform: uppercase; font-family: monospace;">Итого к оплате</div>
-            <div class="total-price" id="summary-total">1 800 ₽</div>
+            <div style="font-family: monospace; font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Итого</div>
+            <div class="total-val" id="calc-total">1 800 ₽</div>
           </div>
-          <button class="btn-primary" onclick="openBookingModalWithSelected()">Записаться на выбранное →</button>
+          <button class="btn-main" onclick="openModal()">Записаться на выбранное →</button>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- LOCATION & CONTACT -->
-  <section style="padding: 20px 0 60px;">
-    <div class="container">
-      <div class="location-box">
-        <div class="loc-details">
-          <div class="spec-kicker">КАК НАС НАЙТИ</div>
+      <!-- LOCATION DETAILS -->
+      <div class="info-layout">
+        <div class="info-block">
+          <div class="hero-meta">[ ЛОКАЦИЯ ]</div>
           <h3>ул. Ленина, 20</h3>
-          <p class="loc-desc">
-            Мы находимся в самом сердце Новосибирска, в пяти минутах ходьбы от метро «Площадь Ленина» рядом с театром «Красный факел». Во дворе всегда есть удобная парковка для гостей.
+          <p>
+            Мы расположены в пяти минутах ходьбы от метро «Площадь Ленина», в исторической части города напротив театра «Красный факел».
           </p>
-          <div class="loc-items">
-            <div class="loc-item">
-              <div class="loc-icon">📍</div>
-              <div><strong>Точный адрес:</strong> Новосибирск, ул. Ленина, 20 (Центральный район)</div>
+          <div class="info-list">
+            <div class="info-item">
+              <span class="info-tag">[АДРЕС]</span>
+              <span>г. Новосибирск, ул. Ленина, дом 20 (Центральный район)</span>
             </div>
-            <div class="loc-item">
-              <div class="loc-icon">🕒</div>
-              <div><strong>Режим работы:</strong> Каждый день с 09:00 до 21:00 без перерывов</div>
+            <div class="info-item">
+              <span class="info-tag">[ЧАСЫ]</span>
+              <span>Ежедневно с 09:00 до 21:00</span>
             </div>
-            <div class="loc-item">
-              <div class="loc-icon">📞</div>
-              <div><strong>Телефон администратора:</strong> +7 (383) 214-04-22 / +7 (913) 912-04-22</div>
+            <div class="info-item">
+              <span class="info-tag">[СВЯЗЬ]</span>
+              <span>+7 (383) 214-04-22 / +7 (913) 912-04-22</span>
             </div>
           </div>
         </div>
 
-        <div class="loc-right">
-          <div class="loc-badge">ОНЛАЙН СВЯЗЬ</div>
-          <h4 style="font-size: 22px; margin-bottom: 12px; color: #ffffff;">Записаться прямо сейчас</h4>
-          <p style="font-size: 14px; color: #8e8e93; margin-bottom: 24px;">Выберите удобный мессенджер — администратор ответит и подтвердит свободное время за 2 минуты.</p>
-          <button class="btn-book" style="width: 100%; padding: 14px; font-size: 15px;" onclick="openBookingModal()">Выбрать канал записи →</button>
+        <div class="cta-card">
+          <div>
+            <div class="hero-meta">[ БЫСТРАЯ БРОНЬ ]</div>
+            <div class="cta-title">Онлайн-запись к мастеру</div>
+            <div class="cta-desc">
+              Отправьте выбранные услуги напрямую администратору в Telegram или WhatsApp. Ответ и подбор удобного окна в течение нескольких минут.
+            </div>
+          </div>
+          <button class="btn-main" style="width: 100%;" onclick="openModal()">Открыть окно записи</button>
         </div>
       </div>
     </div>
@@ -742,109 +724,97 @@
   <!-- FOOTER -->
   <footer>
     <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-      <div>
-        © 2026 TRUE BARBERSHOP • г. Новосибирск, ул. Ленина, 20
-      </div>
-      <div class="credit-badge">
-        КОНЦЕПТ САЙТА // <a href="https://hurters.github.io/" target="_blank" rel="noopener">SYNTACT DESIGN ENGINEERING</a>
-      </div>
+      <div>© 2026 TRUE BARBERSHOP • ул. Ленина, 20</div>
+      <div>ДИЗАЙН И РАЗРАБОТКА // <a href="https://hurters.github.io/" target="_blank">SYNTACT</a></div>
     </div>
   </footer>
 
-  <!-- BOOKING MODAL -->
-  <div class="modal-overlay" id="bookingModal">
-    <div class="modal-card">
-      <button class="modal-close" onclick="closeBookingModal()">✕</button>
-      <div class="modal-title">Онлайн-запись</div>
-      <div class="modal-sub" id="modal-sub-text">Выберите способ связи с администратором TRUE BARBERSHOP:</div>
+  <!-- MODAL -->
+  <div class="modal-backdrop" id="modalBox">
+    <div class="modal-panel">
+      <button class="modal-close-btn" onclick="closeModal()">✕</button>
+      <div class="modal-h3">Запись в салон</div>
+      <div class="modal-subtext">Выберите прямой канал связи с администратором на Ленина, 20:</div>
 
-      <a id="modal-tg-link" href="https://t.me/True_barbershop" target="_blank" class="modal-btn">
-        <div>
-          <div>Написать в Telegram</div>
-          <small style="color: #71717a;">@True_barbershop</small>
-        </div>
-        <span>Открыть TG →</span>
-      </a>
+      <div class="modal-action-row">
+        <a id="link-tg" href="https://t.me/True_barbershop" target="_blank" class="action-link">
+          <div>
+            <div>Написать в Telegram</div>
+            <div class="action-meta">@True_barbershop</div>
+          </div>
+          <div class="action-arrow">Диалог →</div>
+        </a>
 
-      <a id="modal-wa-link" href="https://wa.me/79139120422" target="_blank" class="modal-btn">
-        <div>
-          <div>Написать в WhatsApp</div>
-          <small style="color: #71717a;">+7 (913) 912-04-22</small>
-        </div>
-        <span>Открыть WA →</span>
-      </a>
+        <a id="link-wa" href="https://wa.me/79139120422" target="_blank" class="action-link">
+          <div>
+            <div>Написать в WhatsApp</div>
+            <div class="action-meta">+7 (913) 912-04-22</div>
+          </div>
+          <div class="action-arrow">Диалог →</div>
+        </a>
 
-      <a href="tel:+73832140422" class="modal-btn">
-        <div>
-          <div>Позвонить администратору</div>
-          <small style="color: #71717a;">+7 (383) 214-04-22</small>
-        </div>
-        <span>Вызов 📞</span>
-      </a>
+        <a href="tel:+73832140422" class="action-link">
+          <div>
+            <div>Позвонить по телефону</div>
+            <div class="action-meta">+7 (383) 214-04-22</div>
+          </div>
+          <div class="action-arrow">Вызов →</div>
+        </a>
+      </div>
     </div>
   </div>
 
   <script>
-    let selectedServices = [
+    let selected = [
       { id: '1', name: 'Мужская стрижка', price: 1800 }
     ];
 
-    function toggleService(card) {
-      const id = card.dataset.id;
-      const name = card.dataset.name;
-      const price = parseInt(card.dataset.price);
+    function toggleCard(el) {
+      const id = el.dataset.id;
+      const name = el.dataset.name;
+      const price = parseInt(el.dataset.price);
 
-      const existsIdx = selectedServices.findIndex(s => s.id === id);
-      if (existsIdx > -1) {
-        if (selectedServices.length === 1) return; // Keep at least one
-        selectedServices.splice(existsIdx, 1);
-        card.classList.remove('selected');
+      const idx = selected.findIndex(item => item.id === id);
+      if (idx > -1) {
+        if (selected.length === 1) return; // Keep one minimum
+        selected.splice(idx, 1);
+        el.classList.remove('active');
       } else {
-        selectedServices.push({ id, name, price });
-        card.classList.add('selected');
+        selected.push({ id, name, price });
+        el.classList.add('active');
       }
 
-      updateSummary();
+      updateCalc();
     }
 
-    function updateSummary() {
-      const names = selectedServices.map(s => s.name).join(' + ');
-      const total = selectedServices.reduce((sum, s) => sum + s.price, 0);
+    function updateCalc() {
+      const names = selected.map(s => s.name).join(' + ');
+      const total = selected.reduce((sum, s) => sum + s.price, 0);
 
-      document.getElementById('summary-title').textContent = 'Выбрано: ' + names;
-      document.getElementById('summary-count').textContent = selectedServices.length + ' ' + getPlural(selectedServices.length, ['услуга', 'услуги', 'услуг']) + ' в чеке';
-      document.getElementById('summary-total').textContent = total.toLocaleString('ru-RU') + ' ₽';
+      document.getElementById('calc-title').textContent = 'Выбрано: ' + names;
+      document.getElementById('calc-count').textContent = selected.length + ' поз. в расчете';
+      document.getElementById('calc-total').textContent = total.toLocaleString('ru-RU') + ' ₽';
 
-      // Update prefilled links
-      const msg = `Здравствуйте! Хочу записаться в True Barbershop на Ленина, 20 на услуги: ${names} (расчёт: ${total} ₽). Когда есть свободные окна?`;
-      const enc = encodeURIComponent(msg);
-      document.getElementById('modal-tg-link').href = `https://t.me/True_barbershop?text=${enc}`;
-      document.getElementById('modal-wa-link').href = `https://wa.me/79139120422?text=${enc}`;
+      const pitch = `Здравствуйте! Хочу записаться в True Barbershop на Ленина, 20 на: ${names} (${total} ₽). Подскажите свободные окна?`;
+      const enc = encodeURIComponent(pitch);
+      document.getElementById('link-tg').href = `https://t.me/True_barbershop?text=${enc}`;
+      document.getElementById('link-wa').href = `https://wa.me/79139120422?text=${enc}`;
     }
 
-    function getPlural(n, forms) {
-      return n % 10 === 1 && n % 100 !== 11 ? forms[0] : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? forms[1] : forms[2]);
+    function openModal() {
+      updateCalc();
+      document.getElementById('modalBox').classList.add('open');
     }
 
-    function openBookingModal() {
-      updateSummary();
-      document.getElementById('bookingModal').classList.add('active');
+    function closeModal() {
+      document.getElementById('modalBox').classList.remove('open');
     }
 
-    function openBookingModalWithSelected() {
-      openBookingModal();
-    }
-
-    function closeBookingModal() {
-      document.getElementById('bookingModal').classList.remove('active');
-    }
-
-    // Close on backdrop click
-    document.getElementById('bookingModal').addEventListener('click', (e) => {
-      if (e.target.id === 'bookingModal') closeBookingModal();
+    document.getElementById('modalBox').addEventListener('click', (e) => {
+      if (e.target.id === 'modalBox') closeModal();
     });
 
-    updateSummary();
+    updateCalc();
   </script>
 </body>
 </html>
