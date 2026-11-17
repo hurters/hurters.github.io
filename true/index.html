@@ -19,8 +19,8 @@
       --text: #171717;
       --muted: #777773;
       --accent: #191919;
-      --radius: 22px;
-      --shadow: 0 18px 50px rgba(20, 20, 20, 0.07);
+      --radius: 20px;
+      --shadow: 0 18px 50px rgba(20, 20, 20, 0.06);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,8 +38,9 @@
     a { color: inherit; text-decoration: none; }
     button { font: inherit; }
 
+    /* FULL WIDTH DESKTOP CONTAINER */
     .container {
-      width: min(100% - 32px, 760px);
+      width: min(100% - 64px, 1220px);
       margin: auto;
     }
 
@@ -54,14 +55,14 @@
       transition: 0.25s;
     }
     .nav {
-      height: 64px;
+      height: 68px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 16px;
     }
     .logo {
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 800;
       letter-spacing: 0.16em;
       text-transform: uppercase;
@@ -70,12 +71,21 @@
       font-weight: 500;
       color: var(--muted);
     }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #555550;
+    }
+    .nav-menu a:hover { color: var(--text); }
     .header-book {
-      padding: 10px 18px;
+      padding: 11px 22px;
       border-radius: 999px;
       background: var(--accent);
       color: #fff;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       border: none;
       cursor: pointer;
@@ -85,11 +95,11 @@
 
     /* TYPOGRAPHY */
     .eyebrow {
-      font-size: 10px;
+      font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.22em;
       color: var(--muted);
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       font-weight: 700;
     }
     h1, h2, h3 {
@@ -97,21 +107,21 @@
       line-height: 1.03;
       letter-spacing: -0.045em;
     }
-    h1 { font-size: clamp(42px, 11vw, 68px); }
-    h2 { font-size: clamp(32px, 8vw, 52px); }
-    h3 { font-size: 21px; }
+    h1 { font-size: clamp(48px, 6vw, 76px); }
+    h2 { font-size: clamp(36px, 4.5vw, 56px); }
+    h3 { font-size: 22px; }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       min-height: 52px;
-      padding: 0 24px;
+      padding: 0 28px;
       border-radius: 999px;
       background: var(--accent);
       color: #fff;
       border: 1px solid var(--accent);
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
       cursor: pointer;
       transition: 0.2s;
@@ -128,99 +138,156 @@
     }
     .btn.full { width: 100%; }
 
-    /* HERO */
+    /* HERO: 2-COLUMN FULL-WIDTH */
     .hero {
-      padding: 108px 0 44px;
+      padding: 120px 0 60px;
+    }
+    .hero-split {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 48px;
+      align-items: center;
     }
     .hero h1 span { color: #888884; }
     .hero-text {
-      max-width: 580px;
-      margin: 22px 0 28px;
+      max-width: 620px;
+      margin: 24px 0 32px;
       color: #555550;
-      font-size: 15px;
+      font-size: 17px;
       line-height: 1.6;
     }
     .hero-actions {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-    @media(min-width: 480px) {
-      .hero-actions { grid-template-columns: 1.3fr 1fr; }
+      display: flex;
+      gap: 14px;
+      align-items: center;
     }
 
-    .hero-meta {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-top: 1px solid var(--line);
-      margin-top: 36px;
-      padding-top: 20px;
-      gap: 16px;
-    }
-    .meta-item small {
-      display: block;
-      color: var(--muted);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      margin-bottom: 4px;
-      font-weight: 700;
-    }
-    .meta-item strong {
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    /* SECTION COMMON */
-    section {
-      padding: 54px 0;
-      scroll-margin-top: 72px;
-    }
-    .section-head {
-      margin-bottom: 30px;
-    }
-    .section-head p {
-      margin-top: 12px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    /* CARDS */
-    .card {
-      background: var(--paper);
+    /* HERO VISUAL CARD (Academy Aesthetic) */
+    .hero-poster {
+      background: var(--soft);
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 24px;
+      min-height: 420px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 32px;
       box-shadow: var(--shadow);
     }
-
-    /* SERVICES CALCULATOR GRID */
-    .services-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
+    .hero-poster:before {
+      content: "TRUE";
+      position: absolute;
+      top: -10px;
+      right: 10px;
+      font-size: 140px;
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1;
+      pointer-events: none;
     }
-    @media(min-width: 600px) {
-      .services-grid { grid-template-columns: 1fr 1fr; }
+    .poster-tag {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      align-self: flex-start;
+      position: relative;
+      z-index: 2;
+    }
+    .poster-bottom {
+      position: relative;
+      z-index: 2;
+    }
+    .poster-bottom h3 {
+      font-size: 28px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .poster-bottom p {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 340px;
+    }
+
+    /* SPECS STRIP */
+    .hero-meta-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      border-top: 1px solid var(--line);
+      margin-top: 56px;
+      padding-top: 32px;
+    }
+    .meta-box {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px 24px;
+      box-shadow: var(--shadow);
+    }
+    .meta-box small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+    .meta-box strong {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 72px 0;
+      scroll-margin-top: 80px;
+    }
+    .section-head-wide {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 40px;
+    }
+    .section-head-wide p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 500px;
+    }
+
+    /* 4-COLUMN FULL-WIDTH CARDS */
+    .services-grid-wide {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
     }
 
     .service-card {
       background: var(--paper);
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 24px;
+      padding: 28px 24px;
       box-shadow: var(--shadow);
       cursor: pointer;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 200px;
-      transition: all 0.2s ease;
+      min-height: 240px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
     }
     .service-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.09);
+      transform: translateY(-3px);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.1);
     }
     .service-card.selected {
       border-color: var(--accent);
@@ -230,17 +297,17 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
     .service-num {
-      font-size: 10px;
+      font-size: 11px;
       color: var(--muted);
       letter-spacing: 0.15em;
       font-weight: 700;
     }
     .service-check {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       border: 1px solid var(--line);
       display: flex;
@@ -257,8 +324,8 @@
       color: #fff;
     }
     .service-card h3 {
-      font-size: 20px;
-      margin-bottom: 8px;
+      font-size: 21px;
+      margin-bottom: 10px;
     }
     .service-card p {
       font-size: 13px;
@@ -269,32 +336,36 @@
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      margin-top: 20px;
+      margin-top: 24px;
       border-top: 1px solid var(--soft);
-      padding-top: 14px;
+      padding-top: 16px;
     }
     .service-price {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 800;
       letter-spacing: -0.03em;
     }
     .service-time {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--muted);
       font-weight: 600;
     }
 
-    /* DARK BREAKOUT SECTION */
+    /* DARK BREAKOUT BANNER */
     .dark-breakout {
       background: var(--accent);
       color: #ffffff;
       border-radius: var(--radius);
-      padding: 32px 28px;
-      margin-top: 16px;
+      padding: 40px 48px;
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 48px;
+      align-items: center;
     }
     .dark-breakout .eyebrow { color: #8c8c88; }
-    .dark-breakout h3 { font-size: 28px; margin-bottom: 8px; }
-    .dark-breakout p { color: #b5b5b0; font-size: 13px; margin-bottom: 24px; }
+    .dark-breakout h3 { font-size: 36px; margin-bottom: 12px; }
+    .dark-breakout p { color: #b5b5b0; font-size: 15px; line-height: 1.5; }
     .dark-specs {
       display: grid;
       gap: 0;
@@ -303,109 +374,113 @@
     .dark-spec-row {
       display: flex;
       justify-content: space-between;
-      padding: 13px 0;
+      padding: 16px 0;
       border-bottom: 1px solid #333333;
-      font-size: 13px;
+      font-size: 14px;
     }
-    .dark-spec-row span:last-child { color: #888888; }
+    .dark-spec-row span:last-child { color: #888888; font-weight: 600; }
 
-    /* SUMMARY DOCK (STICKY BOTTOM) */
+    /* SUMMARY DOCK */
     .summary-dock {
       background: var(--paper);
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 22px 24px;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
+      padding: 24px 36px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1);
       margin-top: 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
+      gap: 24px;
     }
     .summary-text h4 {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 800;
       letter-spacing: -0.02em;
     }
     .summary-text p {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--muted);
+      margin-top: 2px;
     }
     .summary-amount {
-      font-size: 24px;
+      font-size: 28px;
       font-weight: 800;
       letter-spacing: -0.04em;
     }
-    @media(max-width: 520px) {
-      .summary-dock { flex-direction: column; align-items: stretch; text-align: center; }
-      .summary-amount { margin-bottom: 10px; }
-    }
 
-    /* ABOUT / WHY LIST */
-    .about-section {
+    /* SPLIT 2-COLUMN ABOUT & LOCATION */
+    .split-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .about-card {
       background: var(--soft);
       border-radius: var(--radius);
-      padding: 36px 30px;
-      margin-top: 20px;
+      padding: 44px;
     }
     .why-list {
       display: grid;
       gap: 0;
       border-top: 1px solid var(--line);
-      margin-top: 24px;
+      margin-top: 28px;
     }
     .why-item {
       display: grid;
-      grid-template-columns: 44px 1fr;
-      gap: 12px;
-      padding: 18px 0;
+      grid-template-columns: 48px 1fr;
+      gap: 16px;
+      padding: 20px 0;
       border-bottom: 1px solid var(--line);
     }
     .why-num {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--muted);
       font-weight: 800;
     }
     .why-item h4 {
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 800;
       letter-spacing: -0.02em;
     }
     .why-item p {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--muted);
       margin-top: 4px;
     }
 
-    /* LOCATION CARD */
     .location-card {
       background: var(--paper);
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 32px 28px;
+      padding: 44px;
       box-shadow: var(--shadow);
-      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .location-card h3 {
-      font-size: 26px;
+      font-size: 32px;
       margin-bottom: 12px;
     }
     .location-card p {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--muted);
-      margin-bottom: 24px;
+      margin-bottom: 32px;
+      line-height: 1.6;
     }
     .loc-rows {
       display: grid;
-      gap: 12px;
-      margin-bottom: 28px;
+      gap: 16px;
+      margin-bottom: 36px;
       border-top: 1px solid var(--line);
-      padding-top: 16px;
+      padding-top: 20px;
     }
     .loc-row {
       display: flex;
       justify-content: space-between;
-      font-size: 13px;
+      font-size: 14px;
     }
     .loc-row span:first-child { color: var(--muted); font-weight: 600; }
     .loc-row span:last-child { font-weight: 700; text-align: right; }
@@ -414,13 +489,13 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(23, 23, 23, 0.6);
-      backdrop-filter: blur(10px);
+      background: rgba(23, 23, 23, 0.65);
+      backdrop-filter: blur(12px);
       z-index: 1000;
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 16px;
+      padding: 20px;
     }
     .modal-overlay.open { display: flex; }
     .modal-box {
@@ -428,24 +503,24 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       width: 100%;
-      max-width: 440px;
-      padding: 32px 26px;
+      max-width: 480px;
+      padding: 40px 36px;
       position: relative;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
     }
     .modal-close {
       position: absolute;
-      top: 18px; right: 18px;
+      top: 20px; right: 20px;
       background: none; border: none;
-      font-size: 20px; color: var(--muted);
+      font-size: 22px; color: var(--muted);
       cursor: pointer;
     }
-    .modal-box h3 { font-size: 22px; margin-bottom: 8px; }
-    .modal-box p { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+    .modal-box h3 { font-size: 26px; margin-bottom: 8px; }
+    .modal-box p { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
     .modal-channels {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
     .modal-link {
       display: flex;
@@ -453,32 +528,32 @@
       align-items: center;
       background: var(--bg);
       border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 16px 18px;
-      font-size: 14px;
+      border-radius: 16px;
+      padding: 18px 22px;
+      font-size: 15px;
       font-weight: 700;
-      transition: 0.15s;
+      transition: all 0.15s;
     }
     .modal-link:hover {
       background: #ffffff;
       border-color: var(--accent);
-      transform: translateX(3px);
+      transform: translateX(4px);
     }
     .modal-link small {
       display: block;
       color: var(--muted);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 500;
-      margin-top: 2px;
+      margin-top: 3px;
     }
-    .modal-link span { color: var(--muted); font-size: 13px; }
+    .modal-link span { color: var(--muted); font-size: 14px; }
 
     /* FOOTER */
     footer {
       border-top: 1px solid var(--line);
-      margin-top: 60px;
-      padding: 32px 0;
-      font-size: 12px;
+      margin-top: 80px;
+      padding: 40px 0;
+      font-size: 13px;
       color: var(--muted);
     }
     .footer-inner {
@@ -487,6 +562,22 @@
       align-items: center;
     }
     .footer-inner a { font-weight: 700; color: var(--text); }
+
+    @media (max-width: 990px) {
+      .hero-split { grid-template-columns: 1fr; }
+      .services-grid-wide { grid-template-columns: repeat(2, 1fr); }
+      .dark-breakout { grid-template-columns: 1fr; gap: 24px; padding: 32px 24px; }
+      .split-layout { grid-template-columns: 1fr; }
+      .hero-meta-strip { grid-template-columns: repeat(2, 1fr); }
+      .nav-menu { display: none; }
+    }
+    @media (max-width: 600px) {
+      .services-grid-wide { grid-template-columns: 1fr; }
+      .hero-meta-strip { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; width: 100%; }
+      .btn { width: 100%; }
+      .summary-dock { flex-direction: column; text-align: center; }
+    }
   </style>
 </head>
 <body>
@@ -497,49 +588,80 @@
       <a href="#" class="logo">
         TRUE <span>BARBERSHOP</span>
       </a>
+
+      <div class="nav-menu">
+        <a href="#services">Услуги</a>
+        <a href="#vip">VIP-уход</a>
+        <a href="#about">Атмосфера</a>
+        <a href="#contacts">Контакты</a>
+      </div>
+
       <button class="header-book" onclick="openModal()">Записаться</button>
     </div>
   </header>
 
-  <!-- HERO -->
+  <!-- HERO (FULL-WIDTH 2-COLUMN) -->
   <section class="hero">
     <div class="container">
-      <div class="eyebrow">НОВОСИБИРСК // УЛ. ЛЕНИНА, 20</div>
-      <h1>
-        Классический барбершоп <span>в историческом центре.</span>
-      </h1>
-      <p class="hero-text">
-        Мужские и детские стрижки, опасная бритва, моделирование бороды и традиционный мужской уход. Выдержанный стиль, спокойная обстановка и постоянство мастеров.
-      </p>
+      <div class="hero-split">
+        <div>
+          <div class="eyebrow">НОВОСИБИРСК // УЛ. ЛЕНИНА, 20</div>
+          <h1>
+            Классический барбершоп <span>в историческом центре.</span>
+          </h1>
+          <p class="hero-text">
+            Мужские и детские стрижки, опасная бритва, моделирование бороды и традиционный мужской уход. Выдержанный стиль, спокойная обстановка и постоянство мастеров.
+          </p>
 
-      <div class="hero-actions">
-        <button class="btn" onclick="openModal()">Записаться онлайн</button>
-        <a href="#services" class="btn light">Услуги и цены</a>
+          <div class="hero-actions">
+            <button class="btn" onclick="openModal()">Записаться онлайн →</button>
+            <a href="#services" class="btn light">Услуги и цены</a>
+          </div>
+        </div>
+
+        <div class="hero-poster">
+          <div class="poster-tag">EST. NOVOSIBIRSK // LENINA 20</div>
+          <div class="poster-bottom">
+            <h3>Культура формы и бритья</h3>
+            <p>Спокойное мужское пространство в пяти минутах от площади Ленина без спешки и конвейера.</p>
+          </div>
+        </div>
       </div>
 
-      <div class="hero-meta">
-        <div class="meta-item">
+      <!-- SPECS STRIP -->
+      <div class="hero-meta-strip">
+        <div class="meta-box">
           <small>ЛОКАЦИЯ</small>
           <strong>ул. Ленина, 20</strong>
         </div>
-        <div class="meta-item">
-          <small>РЕЖИМ РАБОТЫ</small>
-          <strong>Ежедневно 09:00–21:00</strong>
+        <div class="meta-box">
+          <small>ГРАФИК</small>
+          <strong>09:00 – 21:00</strong>
+        </div>
+        <div class="meta-box">
+          <small>ОПЫТ БАРБЕРОВ</small>
+          <strong>От 5 лет практики</strong>
+        </div>
+        <div class="meta-box">
+          <small>ПАРКОВКА</small>
+          <strong>Закрытый двор дома</strong>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SERVICES SECTION -->
+  <!-- SERVICES (4-COLUMN WIDE GRID) -->
   <section id="services">
     <div class="container">
-      <div class="section-head">
-        <div class="eyebrow">УСЛУГИ И СТОИМОСТЬ</div>
-        <h2>Калькулятор стрижки</h2>
-        <p>Выберите одну или несколько услуг, чтобы сформировать точный чек визита:</p>
+      <div class="section-head-wide">
+        <div>
+          <div class="eyebrow">УСЛУГИ И СТОИМОСТЬ</div>
+          <h2>Калькулятор стрижки</h2>
+        </div>
+        <p>Кликните на услуги, чтобы собрать комплекс и увидеть точный чек с быстрой записью:</p>
       </div>
 
-      <div class="services-grid">
+      <div class="services-grid-wide">
         <!-- 01 -->
         <div class="service-card selected" data-id="1" data-name="Мужская стрижка" data-price="1800" onclick="toggleCard(this)">
           <div>
@@ -548,7 +670,7 @@
               <div class="service-check">✓</div>
             </div>
             <h3>Мужская стрижка</h3>
-            <p>Мытье головы, индивидуальный подбор формы с учетом геометрии головы, стрижка ножницами и машинкой, укладка.</p>
+            <p>Мытье головы, подбор формы, стрижка ножницами и машинкой, сушка и укладка.</p>
           </div>
           <div class="service-bottom">
             <span class="service-price">1 800 ₽</span>
@@ -564,7 +686,7 @@
               <div class="service-check">✓</div>
             </div>
             <h3>Моделирование бороды</h3>
-            <p>Четкие линии контуров, распаривание компрессом с маслами, бритье шеи и оформление усов.</p>
+            <p>Геометрия контуров, распаривание компрессом с маслами, бритье шеи и стрижка усов.</p>
           </div>
           <div class="service-bottom">
             <span class="service-price">1 200 ₽</span>
@@ -580,7 +702,7 @@
               <div class="service-check">✓</div>
             </div>
             <h3>Стрижка + Борода</h3>
-            <p>Полный комплекс в один визит. Фирменный образ с экономией 400 ₽ относительно раздельных чеков.</p>
+            <p>Фирменный образ за один визит. Выгода 400 ₽ относительно раздельных услуг.</p>
           </div>
           <div class="service-bottom">
             <span class="service-price">2 600 ₽</span>
@@ -596,7 +718,7 @@
               <div class="service-check">✓</div>
             </div>
             <h3>Королевское бритьё</h3>
-            <p>Традиционное влажное бритье опасной бритвой с двойным горячим компрессом и успокаивающим лосьоном.</p>
+            <p>Влажное бритье опасной бритвой с горячими компрессами и массажем лица.</p>
           </div>
           <div class="service-bottom">
             <span class="service-price">1 500 ₽</span>
@@ -605,11 +727,13 @@
         </div>
       </div>
 
-      <!-- DARK BREAKOUT -->
-      <div class="dark-breakout">
-        <div class="eyebrow">ПРЕМИАЛЬНЫЙ СЕРВИС</div>
-        <h3>VIP-уход и детали</h3>
-        <p>Для тех, кто ценит максимальный комфорт и безупречный внешний вид.</p>
+      <!-- DARK BREAKOUT BANNER (FULL WIDTH) -->
+      <div class="dark-breakout" id="vip">
+        <div>
+          <div class="eyebrow">ПРЕМИАЛЬНЫЙ СЕРВИС</div>
+          <h3>VIP-уход и детали</h3>
+          <p>Дополнительные услуги для тех, кто ценит идеальный уход за кожей и волосами.</p>
+        </div>
 
         <div class="dark-specs">
           <div class="dark-spec-row">
@@ -621,7 +745,7 @@
             <span>1 000 ₽</span>
           </div>
           <div class="dark-spec-row">
-            <span>Депиляция воском (уши / нос / брови)</span>
+            <span>Мужская депиляция воском (уши / нос / брови)</span>
             <span>500 ₽</span>
           </div>
         </div>
@@ -633,68 +757,73 @@
           <h4 id="calc-title">Выбрано: Мужская стрижка</h4>
           <p id="calc-count">1 услуга в расчете</p>
         </div>
-        <div style="display: flex; align-items: center; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 24px;">
           <div class="summary-amount" id="calc-total">1 800 ₽</div>
-          <button class="btn" onclick="openModal()">Записаться →</button>
+          <button class="btn" onclick="openModal()">Записаться на выбранное →</button>
         </div>
       </div>
 
-      <!-- ABOUT / WHY -->
-      <div class="about-section">
-        <div class="eyebrow">АТМОСФЕРА И СТАНДАРТЫ</div>
-        <h3 style="font-size: 26px;">Почему выбирают True Barbershop</h3>
+      <!-- SPLIT ABOUT & LOCATION (2 COLUMNS) -->
+      <div class="split-layout" id="about">
+        <!-- LEFT: ABOUT -->
+        <div class="about-card">
+          <div class="eyebrow">АТМОСФЕРА И СТАНДАРТЫ</div>
+          <h3 style="font-size: 30px;">Почему выбирают нас</h3>
 
-        <div class="why-list">
-          <div class="why-item">
-            <div class="why-num">01</div>
-            <div>
-              <h4>Мастера с опытом от 5 лет</h4>
-              <p>Никаких учеников и стажеров. Каждый барбер понимает структуру волос и работает на постоянство формы.</p>
+          <div class="why-list">
+            <div class="why-item">
+              <div class="why-num">01</div>
+              <div>
+                <h4>Мастера с опытом от 5 лет</h4>
+                <p>Никаких учеников и стажеров. Каждый барбер понимает структуру волос и работает на постоянство формы.</p>
+              </div>
             </div>
-          </div>
-          <div class="why-item">
-            <div class="why-num">02</div>
-            <div>
-              <h4>Центральная локация</h4>
-              <p>5 минут пешком от площади Ленина напротив театра «Красный факел». Всегда есть места на парковке.</p>
+            <div class="why-item">
+              <div class="why-num">02</div>
+              <div>
+                <h4>Центральная локация</h4>
+                <p>5 минут пешком от метро «Площадь Ленина» напротив театра «Красный факел». Есть парковка во дворе.</p>
+              </div>
             </div>
-          </div>
-          <div class="why-item">
-            <div class="why-num">03</div>
-            <div>
-              <h4>Мужской клубный комфорт</h4>
-              <p>Натуральный кофе, напитки, фильмы на экранах и спокойная музыка без очередей и суеты.</p>
+            <div class="why-item">
+              <div class="why-num">03</div>
+              <div>
+                <h4>Мужской клубный комфорт</h4>
+                <p>Натуральный кофе, напитки, фильмы на экранах и спокойная музыка без суеты.</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- LOCATION CARD -->
-      <div class="location-card">
-        <div class="eyebrow">КОНТАКТЫ</div>
-        <h3>ул. Ленина, 20</h3>
-        <p>Центральный район Новосибирска. Вход со стороны улицы Ленина, удобный заезд во двор.</p>
+        <!-- RIGHT: LOCATION & BOOKING -->
+        <div class="location-card" id="contacts">
+          <div>
+            <div class="eyebrow">КОНТАКТЫ И ЗАПИСЬ</div>
+            <h3>ул. Ленина, 20</h3>
+            <p>Центральный район Новосибирска. Вход со стороны улицы Ленина, удобный заезд во двор.</p>
 
-        <div class="loc-rows">
-          <div class="loc-row">
-            <span>Метро</span>
-            <span>Площадь Ленина (450 м)</span>
+            <div class="loc-rows">
+              <div class="loc-row">
+                <span>Метро</span>
+                <span>Площадь Ленина (450 м)</span>
+              </div>
+              <div class="loc-row">
+                <span>Телефон</span>
+                <span><a href="tel:+73832140422">+7 (383) 214-04-22</a></span>
+              </div>
+              <div class="loc-row">
+                <span>Администратор</span>
+                <span><a href="tel:+79139120422">+7 (913) 912-04-22</a></span>
+              </div>
+              <div class="loc-row">
+                <span>Режим</span>
+                <span>09:00 – 21:00 ежедневно</span>
+              </div>
+            </div>
           </div>
-          <div class="loc-row">
-            <span>Телефон</span>
-            <span><a href="tel:+73832140422">+7 (383) 214-04-22</a></span>
-          </div>
-          <div class="loc-row">
-            <span>Администратор</span>
-            <span><a href="tel:+79139120422">+7 (913) 912-04-22</a></span>
-          </div>
-          <div class="loc-row">
-            <span>Режим</span>
-            <span>09:00 – 21:00 каждый день</span>
-          </div>
+
+          <button class="btn full" onclick="openModal()">Забронировать время визита</button>
         </div>
-
-        <button class="btn full" onclick="openModal()">Забронировать время визита</button>
       </div>
 
     </div>
@@ -703,8 +832,8 @@
   <!-- FOOTER -->
   <footer>
     <div class="container footer-inner">
-      <div>© 2026 TRUE BARBERSHOP • ул. Ленина, 20</div>
-      <div>КОНЦЕПТ СТУДИИ // <a href="https://hurters.github.io/" target="_blank">SYNTACT</a></div>
+      <div>© 2026 TRUE BARBERSHOP • г. Новосибирск, ул. Ленина, 20</div>
+      <div>ДИЗАЙН И РАЗРАБОТКА // <a href="https://hurters.github.io/" target="_blank">SYNTACT</a></div>
     </div>
   </footer>
 
